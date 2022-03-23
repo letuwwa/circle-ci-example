@@ -12,10 +12,6 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
           pip-dependency-file: requirements.txt
-      - run:
-          name: "build"
-          command: |
-            pip install -r requirements.txt
       - persist_to_workspace:
           root: ~/project
           paths:
