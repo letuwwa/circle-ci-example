@@ -5,6 +5,7 @@ jobs:
     docker:
       - image: cimg/python:3.10.2
 
+    working_directory: ~/project
     steps:
       - checkout
       - run:
@@ -12,10 +13,10 @@ jobs:
           command: |
             pwd
             pip install -r requirements.txt
-            pytest
-#      - store_artifacts:
-#          path: /tmp
-#          destination: report.html
+            pytest --html=report.html --self-contained-html
+      - store_artifacts:
+          path: ~/project
+          destination: report.html
 
 workflows:
   build-run-workflow:
