@@ -1,31 +1,16 @@
 version: 2.1
-orbs:
-  python: circleci/python@1.5.0
-
 
 jobs:
-  build-env:
+  build-test:
     docker:
       - image: cimg/python:3.10.2
+
     steps:
       - checkout
-      - python/install-packages:
-          pkg-manager: pip
-          pip-dependency-file: requirements.txt
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
-
-  tests-run:
-    docker:
-      - image: cimg/python:3.10.2
-    steps:
-      - attach_workspace:
-          at: ~/project
       - run:
-          name: "run"
+          name: "build and test"
           command: |
+            pip install -r requirements.txt
             pytest --html=report.html --self-contained-html --junitxml=report.xml
       - store_artifacts:
           path: ~/project/report.html
@@ -35,7 +20,4 @@ jobs:
 workflows:
   build-run-workflow:
     jobs:
-      - build-env
-      - tests-run:
-          requires:
-            - build-env
+      - build-test
