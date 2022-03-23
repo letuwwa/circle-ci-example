@@ -11,10 +11,11 @@ jobs:
       - run:
           name: "build and run"
           command: |
-            pwd
             pip install -r requirements.txt
             pytest --html=report.html --self-contained-html
       - store_artifacts:
+          path: ~/project/report.html
+      - store_test_results:
           path: ~/project/report.html
 
 workflows:
