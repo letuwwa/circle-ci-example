@@ -15,8 +15,7 @@ jobs:
             pip install -r requirements.txt
             pytest --html=report.html --self-contained-html
       - store_artifacts:
-          path: ~/project
-          destination: report.html
+          path: ~/project/report.html
 
 workflows:
   build-run-workflow:
