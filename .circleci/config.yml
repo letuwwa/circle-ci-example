@@ -1,17 +1,29 @@
 version: 2.1
 
 jobs:
-  build-run:
+  build-env:
     docker:
       - image: cimg/python:3.10.2
-
-    working_directory: ~/project
     steps:
       - checkout
       - run:
-          name: "build and run"
+          name: "build"
           command: |
             pip install -r requirements.txt
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+
+  tests-run:
+    docker:
+      - image: cimg/python:3.10.2
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: "run"
+          command: |
             pytest --html=report.html --self-contained-html --junitxml=report.xml
       - store_artifacts:
           path: ~/project/report.html
@@ -21,4 +33,7 @@ jobs:
 workflows:
   build-run-workflow:
     jobs:
-      - build-run
+      - build-env
+      - tests-run:
+          requires:
+            - build-env
