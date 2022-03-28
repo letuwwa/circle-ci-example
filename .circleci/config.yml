@@ -21,6 +21,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
+      - python/install-packages:
+          pkg-manager: pip
       - run:
           name: "test"
           command: |
