@@ -37,4 +37,5 @@ jobs:
 workflows:
   build-run-workflow:
     jobs:
-      - build-test
+      - build
+      - test
