@@ -28,7 +28,8 @@ jobs:
       - run:
           name: "test"
           command: |
-             pytest --html=report.html --self-contained-html --junitxml=report.xml
+            source env/bin/activate
+            pytest --html=report.html --self-contained-html --junitxml=report.xml
       - store_artifacts:
           path: ~/project/report.html
       - store_test_results:
