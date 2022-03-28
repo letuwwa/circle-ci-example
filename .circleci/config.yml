@@ -33,7 +33,7 @@ jobs:
           path: ~/project/report.xml
 
 workflows:
-  build-run-workflow:
+  build-test-workflow:
     jobs:
       - build
       - test:
