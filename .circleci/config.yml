@@ -10,10 +10,6 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip
-      - run:
-          name: "build"
-          command: |
-            pip install -r requirements.txt
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -39,4 +35,6 @@ workflows:
   build-run-workflow:
     jobs:
       - build
-      - test
+      - test:
+          requires:
+            - build
